@@ -7,7 +7,6 @@ function Board() {
   var isStockfishOn = true; // true until a player connects;
 
   var onDragStart = function (source, piece, position, orientation) {
-    console.log(chess);
     if (chess.in_checkmate()) {
       var confirm = window.confirm('You Lost! Reset the game?');
       if (confirm) {

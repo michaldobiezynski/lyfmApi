@@ -12,7 +12,7 @@ function EngineGame(options) {
 
   //interface to send commands to the UCI
   function uciCmd(cmd) {
-    console.log('[INPUT] UCI: ' + cmd);
+    // console.log('[INPUT] UCI: ' + cmd);
     engine.postMessage(cmd);
   }
 
@@ -37,8 +37,8 @@ function EngineGame(options) {
       moves +=
         ' ' + move.from + move.to + (move.promotion ? move.promotion : '');
     }
-    console.log('******************');
-    console.log('MOVES : ' + moves);
+    // console.log('******************');
+    // console.log('MOVES : ' + moves);
     return moves;
   }
   //prepare the move, this function asks the engine to start
@@ -48,7 +48,7 @@ function EngineGame(options) {
   function prepareMove() {
     $('.logge').text(board.getPgn() + '\n');
 
-    console.log('CPU is thinking ... ');
+    // console.log('CPU is thinking ... ');
     //update the latest board positions before search for moves
     board.setFenPosition();
     var turn = board.getTurn() == 'w' ? 'white' : 'black';
@@ -62,8 +62,9 @@ function EngineGame(options) {
   }
 
   engine.onmessage = function (event) {
+    console.log(event.data);
     var line = event.data ? event.data : event;
-    console.log('[OUTPUT] UCI :' + line);
+    // console.log('[OUTPUT] UCI :' + line);
     if (line == 'readyok') {
       isEngineReady = true;
       reportEngineStatus();
@@ -71,7 +72,7 @@ function EngineGame(options) {
       var match = line.match(
         /^bestmove ([a-h][1-8])([a-h][1-8])([qrbn])?.\bbestmoveSan ...([+]|[#])?/
       );
-      console.log('match ' + match);
+      // console.log('match ' + match);
       if (match) {
         if (match[4] == '+') {
           // player is being checked
